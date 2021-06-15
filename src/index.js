@@ -1,32 +1,15 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux'
-import { noteReducer } from './reducers/noteReducer'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const store = createStore(
-  noteReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
 
-store.dispatch({
-  type: "new_note",
-  payload: {
-    content: "una nota cualquiera",
-    important: true,
-    id: 1
-
-  }
-})
 
 ReactDOM.render(
-  <Provider store={store}>
     <App/>
-  </Provider>
   , document.getElementById('root')
 )
 

@@ -12,18 +12,18 @@ import {
 const App = () => {
 
 
-    console.log(fiveDaysInfo.data.DailyForecasts)
+    //console.log(fiveDaysInfo.data.DailyForecasts)
 
     return (
         <div>
-            <h1>Welcome to the Weather App</h1>
+            <h1 className="text-center">Welcome to the Weather App</h1>
             <Router>
                 <Switch>
                     <Route exact path="/">
                         <WeatherDisplay/>
                     </Route>
-                    <Route path="/:cityFiveDays">
-                        <FiveDaysDisplay/>
+                    <Route path="/city/:cityId">
+                        <FiveDaysDisplay />
                     </Route>
                 </Switch>
             </Router>
