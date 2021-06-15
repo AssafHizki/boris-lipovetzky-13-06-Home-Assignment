@@ -1,28 +1,34 @@
 import { useState, useEffect } from 'react'
-import {
-    Link
-} from 'react-router-dom';
-/*setInitializer(response.haifa)
-        setWeatherHaifaToday(response.haifa)
-        setWeatherTlvToday(response.tlv)
-        setWeatherJerusalemToday(response.jerusalem)*/
-
+import {Link} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux'
+import {fetchWeather} from '../actions/fetchWeather'
+//const [weatherHaifaToday, setWeatherHaifaToday] = useState([])
+    //const [weatherTlvToday, setWeatherTlvToday] = useState([])
+    //const [weatherJerusalemToday, setWeatherJerusalemToday] = useState([])
+    //const [haifaWeatherIcon, setHaifaWeatherIcon] = useState("")
+    //const [tlvWeatherIcon, setTlvWeatherIcon] = useState("")
+    //const [jerusalemWeatherIcon, setJerusalemWeatherIcon] = useState("")
 
 const WeatherDisplay = () => {
 
     const haifaLocationKey = "213181"
     const jerusalemLocationKey = "215854"
     const tlvLocationKey = "213225"
-    const apiKey = "xJGCNsvIBqZZL2wpo1GqVrhK4oQ97f6o"
-
+    const apiKey = "bGLHWGGDTxEXAx6ad0H5E8rO0iG9uwMl"
 
     const [weatherData, setWeatherData] = useState("")
-    //const [weatherHaifaToday, setWeatherHaifaToday] = useState([])
-    //const [weatherTlvToday, setWeatherTlvToday] = useState([])
-    //const [weatherJerusalemToday, setWeatherJerusalemToday] = useState([])
-    //const [haifaWeatherIcon, setHaifaWeatherIcon] = useState("")
-    //const [tlvWeatherIcon, setTlvWeatherIcon] = useState("")
-    //const [jerusalemWeatherIcon, setJerusalemWeatherIcon] = useState("")
+    const [cityInput, setCityInput] = useState("")
+
+    //const weatherSelector   
+    
+
+    const getWeatherInfo = (event) =>{
+        event.preventDefault()
+        if(cityInput === ""){
+            alert("You must enter a city")
+        }
+        console.log("form submited");
+    }
 
     useEffect(() => {
 
@@ -30,10 +36,10 @@ const WeatherDisplay = () => {
         fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/1day/${tlvLocationKey}?apikey=${apiKey}&metric=true`),
         fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/1day/${jerusalemLocationKey}?apikey=${apiKey}&metric=true`)
         ])
-        .then(([haifaW, tlvW, jeruW]) => Promise.all([haifaW.json(), tlvW.json(), jeruW.json()]))
-        .then(([haifadata, tlvdata, jerudata]) =>
-        setWeatherData({ haifadata, tlvdata, jerudata }),
-        )
+            .then(([haifaW, tlvW, jeruW]) => Promise.all([haifaW.json(), tlvW.json(), jeruW.json()]))
+            .then(([haifadata, tlvdata, jerudata]) =>
+                setWeatherData({ haifadata, tlvdata, jerudata }),
+            )
 
     }, []);
 
@@ -48,7 +54,13 @@ const WeatherDisplay = () => {
 
     return (
         <div>
-            <div className="container">
+            <div className="container d-flex justify-content-center mb-5 mt-5">
+                <form onSubmit={getWeatherInfo}>
+                    <input  type="text" placeholder="What city are you looking for?" onChange={event => setCityInput(event.target.value)} />
+                    <button type="submit" className="btn btn-danger">Search</button>
+                </form>
+            </div>
+            <div hidden={false} className="container">
                 <div className="row justify-content-around">
                     <div className="d-flex justify-content-center flex-row col-3 border border-dark rounded">
                         <div className="text-center">

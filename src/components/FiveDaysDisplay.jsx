@@ -14,7 +14,7 @@ const FiveDaysDisplay = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const responseLocationKey = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=xJGCNsvIBqZZL2wpo1GqVrhK4oQ97f6o&q=${cityId}`)
+                const responseLocationKey = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${apiKey}&q=${cityId}`)
                 const locationKey = responseLocationKey.data[0].Key
                 const responseFiveDaysForecast = await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${apiKey}&metric=true`)
                 setFiveDaysInfo(responseFiveDaysForecast.data.DailyForecasts)
