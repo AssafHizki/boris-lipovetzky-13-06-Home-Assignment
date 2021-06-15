@@ -1,8 +1,8 @@
-import thunkMiddleware from 'react-thunk'
+import thunk from 'redux-thunk'
 import {applyMiddleware, createStore} from 'redux'
 import reducers from './reducers/weatherReducer'
 
-const middleware = applyMiddleware(thunkMiddleware)
+const middleware = applyMiddleware(thunk)
 
 const store = createStore(reducers, middleware)
 

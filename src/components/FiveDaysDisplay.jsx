@@ -8,7 +8,7 @@ let newArr = ["boludes 1", "otra cosa x aca", "y otracossea mas", "matanga dijo 
 
 const FiveDaysDisplay = () => {
     const { cityId } = useParams()
-    const apiKey = "xJGCNsvIBqZZL2wpo1GqVrhK4oQ97f6o"
+    const apiKey = "TiaaTCbiq3YbQ26p5O0vlYGSMO9WXzqt"
     const [fiveDaysInfo, setFiveDaysInfo] = useState("")
 
     useEffect(() => {

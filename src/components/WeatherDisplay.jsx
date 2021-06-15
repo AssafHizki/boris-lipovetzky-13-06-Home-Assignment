@@ -2,33 +2,34 @@ import { useState, useEffect } from 'react'
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux'
 import {fetchWeather} from '../actions/fetchWeather'
-//const [weatherHaifaToday, setWeatherHaifaToday] = useState([])
-    //const [weatherTlvToday, setWeatherTlvToday] = useState([])
-    //const [weatherJerusalemToday, setWeatherJerusalemToday] = useState([])
-    //const [haifaWeatherIcon, setHaifaWeatherIcon] = useState("")
-    //const [tlvWeatherIcon, setTlvWeatherIcon] = useState("")
-    //const [jerusalemWeatherIcon, setJerusalemWeatherIcon] = useState("")
 
 const WeatherDisplay = () => {
-
+    
+    const WeatherIconUrl = "https://developer.accuweather.com/sites/default/files/01-s.png"
     const haifaLocationKey = "213181"
     const jerusalemLocationKey = "215854"
     const tlvLocationKey = "213225"
-    const apiKey = "bGLHWGGDTxEXAx6ad0H5E8rO0iG9uwMl"
+    const apiKey = "TiaaTCbiq3YbQ26p5O0vlYGSMO9WXzqt"
 
     const [weatherData, setWeatherData] = useState("")
     const [cityInput, setCityInput] = useState("")
+    const [newCity, setNewCity] = useState("")
 
-    //const weatherSelector   
+    const weatherSelector  = useSelector((state) => state ) 
+    const dispatch = useDispatch()
+    const getWeatherInfoAction = (city) => dispatch(fetchWeather(city))
     
 
     const getWeatherInfo = (event) =>{
         event.preventDefault()
         if(cityInput === ""){
             alert("You must enter a city")
+        } else{
+            getWeatherInfoAction(cityInput)
         }
-        console.log("form submited");
     }
+
+
 
     useEffect(() => {
 
@@ -43,7 +44,16 @@ const WeatherDisplay = () => {
 
     }, []);
 
-    const WeatherIconUrl = "https://developer.accuweather.com/sites/default/files/01-s.png"
+    if(weatherSelector.weatherInfo){
+        return(
+            <div>
+                <h4>{weatherSelector.weatherInfo.name}</h4>
+                <Link target="_blank" to={`city/${weatherSelector.weatherInfo.name}`}><button className="btn btn-danger mb-2">5 Days</button></Link>
+            </div>
+        )
+    }
+    
+
 
     if (!weatherData) {
         return (
