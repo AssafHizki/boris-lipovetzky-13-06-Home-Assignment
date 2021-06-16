@@ -8,7 +8,7 @@ const WeatherDisplay = () => {
     const haifaLocationKey = "213181"
     const jerusalemLocationKey = "215854"
     const tlvLocationKey = "213225"
-    const apiKey = "UGi1gnEeE99DJx57HOEMBUQfQuNVi9UU"
+    const apiKey = "W2Ix6PB5mED6fHI5yAligCEiOiYrXgOV"
     const [weatherData, setWeatherData] = useState("")
     const [cityInput, setCityInput] = useState("")
     const [isCelsius, setIsCelsius] = useState(true)

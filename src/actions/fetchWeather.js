@@ -8,6 +8,9 @@ export function fetchWeather(city) {
                 return res.json()
             })
             .then(jsonRes => {
+                if(jsonRes.cod === "404"){
+                    return alert('city not found')
+                }
                 dispatch({
                     type: "fetch_weather",
                     payload: jsonRes

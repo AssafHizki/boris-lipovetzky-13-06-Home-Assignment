@@ -7,11 +7,12 @@ const axios = require('axios').default;
 
 const FiveDaysDisplay = () => {
     const { cityId } = useParams()
-    const apiKey = "UGi1gnEeE99DJx57HOEMBUQfQuNVi9UU"
+    const apiKey = "W2Ix6PB5mED6fHI5yAligCEiOiYrXgOV"
     const [fiveDaysInfo, setFiveDaysInfo] = useState("")
     const [cityName, setCityName] = useState('')
     const [isCelsius, setIsCelsius] = useState(true)
     const [isFahrenheit, setIsFahrenheit] = useState(false)
+    const [imgUrl, setImgUrl] = useState('')
 
     const toggleCelsiusToFahrenheit = () => {
         setIsCelsius(false)
@@ -31,8 +32,10 @@ const FiveDaysDisplay = () => {
                 const responseFiveDaysForecast = await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${apiKey}&metric=true`)
                 setFiveDaysInfo(responseFiveDaysForecast.data.DailyForecasts)
                 setCityName(responseLocationKey.data[0].LocalizedName)
+                const cityImg = await axios.get(`https://api.teleport.org/api/urban_areas/slug:${responseLocationKey.data[0].LocalizedName.toLowerCase()}/images/`)
+                setImgUrl(cityImg.data.photos[0].image.web)
             } catch (err) {
-                console.error(err)
+                console.log(err)
             }
         }
         fetchData()
@@ -42,8 +45,8 @@ const FiveDaysDisplay = () => {
         return (
             <div className="container mt-5">
                 <div className="d-flex justify-content-center">
-                    <div class="spinner-border text-info" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                    <div className="spinner-border text-info" role="status">
+                        <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
             </div>
@@ -66,6 +69,7 @@ const FiveDaysDisplay = () => {
                             return (
                                 <FiveDaysElement
                                     isCelsius={isCelsius}
+                                    cityImg={imgUrl}
                                     isFahrenheit={isFahrenheit}
                                     key={uuidv4()}
                                     cityName={cityName}
