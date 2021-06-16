@@ -4,12 +4,24 @@ import { v4 as uuidv4 } from 'uuid';
 import FiveDaysElement from './FiveDaysElement'
 const axios = require('axios').default;
 
-let newArr = ["boludes 1", "otra cosa x aca", "y otracossea mas", "matanga dijo la changa", "jajajajajjajaja"]
 
 const FiveDaysDisplay = () => {
     const { cityId } = useParams()
-    const apiKey = "TiaaTCbiq3YbQ26p5O0vlYGSMO9WXzqt"
+    const apiKey = "9ZVaRSSBpddowwsOykv8SAvPAtTo8Hex"
     const [fiveDaysInfo, setFiveDaysInfo] = useState("")
+    const [cityName, setCityName] = useState('')
+    const [isCelsius, setIsCelsius] = useState(true)
+    const [isFahrenheit, setIsFahrenheit] = useState(false)
+
+    const toggleCelsiusToFahrenheit = () => {
+        setIsCelsius(false)
+        setIsFahrenheit(true)
+    }
+
+    const toggleFahrenheitToCelsius = () => {
+        setIsCelsius(true)
+        setIsFahrenheit(false)
+    }
 
     useEffect(() => {
         async function fetchData() {
@@ -18,18 +30,22 @@ const FiveDaysDisplay = () => {
                 const locationKey = responseLocationKey.data[0].Key
                 const responseFiveDaysForecast = await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${apiKey}&metric=true`)
                 setFiveDaysInfo(responseFiveDaysForecast.data.DailyForecasts)
+                setCityName(responseLocationKey.data[0].LocalizedName)
             } catch (err) {
                 console.error(err)
             }
         }
         fetchData()
-        //console.log(responseFiveDaysForecast.data.DailyForecasts)
     }, [cityId])
 
     if (!fiveDaysInfo) {
         return (
-            <div>
-                <p>loading...</p>
+            <div className="container mt-5">
+                <div className="d-flex justify-content-center">
+                    <div class="spinner-border text-info" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -38,13 +54,22 @@ const FiveDaysDisplay = () => {
     return (
         <div>
             <div className="container">
+                <div className="container d-flex justify-content-center mb-5 mt-5">
+                    <div className="d-flex flex-row">
+                        <button hidden={isFahrenheit} onClick={toggleCelsiusToFahrenheit} className="btn btn-danger">To Fahrenheit</button>
+                        <button hidden={isCelsius} onClick={toggleFahrenheitToCelsius} className="btn btn-danger">To Celsius</button>
+                    </div>
+                </div>
                 <div className="row justify-content-around">
                     {
                         fiveDaysInfo.map((element) => {
                             return (
                                 <FiveDaysElement
+                                    isCelsius={isCelsius}
+                                    isFahrenheit={isFahrenheit}
                                     key={uuidv4()}
-                                    texto={element.Date}
+                                    cityName={cityName}
+                                    data={element}
                                 />
                             )
                         })
