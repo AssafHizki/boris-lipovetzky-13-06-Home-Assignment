@@ -10,7 +10,7 @@ const FiveDaysElement = (props) => {
     }
 
     return (
-        <div className="d-flex justify-content-center flex-row col-2 border border-dark rounded mt-5">
+        <div className="d-flex justify-content-center flex-row col-2 border border-white rounded mt-5">
             <div className="text-center">
                 <h4>{cityName}</h4>
                 <p>{data.Date}</p>
