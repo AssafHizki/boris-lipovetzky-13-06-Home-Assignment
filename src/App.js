@@ -3,8 +3,7 @@ import FiveDaysDisplay from './components/FiveDaysDisplay'
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 
 const App = () => {

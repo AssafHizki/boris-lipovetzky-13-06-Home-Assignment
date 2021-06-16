@@ -8,7 +8,7 @@ const WeatherDisplay = () => {
     const haifaLocationKey = "213181"
     const jerusalemLocationKey = "215854"
     const tlvLocationKey = "213225"
-    const apiKey = "W2Ix6PB5mED6fHI5yAligCEiOiYrXgOV"
+    const apiKey = "d1e2MAg7lafMIGrPZMhyA76DFd9NCHHn"
     const [weatherData, setWeatherData] = useState("")
     const [cityInput, setCityInput] = useState("")
     const [isCelsius, setIsCelsius] = useState(true)
@@ -31,8 +31,6 @@ const WeatherDisplay = () => {
         setIsCelsius(true)
         setIsFahrenheit(false)
     }
-
-    //console.log(weatherSelector.weatherInfo)
 
     const weatherSelector = useSelector((state) => state)
     const dispatch = useDispatch()
@@ -105,8 +103,8 @@ const WeatherDisplay = () => {
         return (
             <div className="container mt-5">
                 <div className="d-flex justify-content-center">
-                    <div class="spinner-border text-info" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                    <div className="spinner-border text-info" role="status">
+                        <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
             </div>

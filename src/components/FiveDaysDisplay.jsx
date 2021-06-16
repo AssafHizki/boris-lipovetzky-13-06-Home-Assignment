@@ -7,7 +7,7 @@ const axios = require('axios').default;
 
 const FiveDaysDisplay = () => {
     const { cityId } = useParams()
-    const apiKey = "W2Ix6PB5mED6fHI5yAligCEiOiYrXgOV"
+    const apiKey = "d1e2MAg7lafMIGrPZMhyA76DFd9NCHHn"
     const [fiveDaysInfo, setFiveDaysInfo] = useState("")
     const [cityName, setCityName] = useState('')
     const [isCelsius, setIsCelsius] = useState(true)
